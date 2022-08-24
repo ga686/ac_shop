@@ -23,7 +23,7 @@ module.exports = [
           use: [
             { loader: 'file-loader',
               options: {
-                name: 'dist/images/[name].[ext]'
+                name: '[name].[ext]'
               }
             }
           ]
