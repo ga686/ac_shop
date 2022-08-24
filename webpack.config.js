@@ -17,6 +17,16 @@ module.exports = [
             'css-loader',
             'sass-loader'
           ]
+        },
+        {
+          test: /\.(svg|png)$/,
+          use: [
+            { loader: 'file-loader',
+              options: {
+                name: 'dist/images/[name].[ext]'
+              }
+            }
+          ]
         }
       ]
     },
