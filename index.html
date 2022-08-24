@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AC Shop</title>
+  <link rel="stylesheet" href="dist/all.css">
+</head>
+<body>
+  <header class="navbar d-flex align-items-center">
+    <input type="checkbox" class="navbar-toggle" id="navbar-toggle" />
+    <div class="mobile-logo w-100 h-100 "><a class="nav-link d-block mx-auto"><img src="./src/img/Logo.png"></a></div>
+    <div class="navbar-container w-100 d-flex mx-auto text-center align-items-center px-1">
+      <div class="nav-item"><a class="nav-link">男款</a></div>
+      <div class="nav-item"><a class="nav-link">女款</a></div>
+      <div class="nav-item"><a class="nav-link">最新消息</a></div>
+      <div class="nav-item"><a class="nav-link">客製商品</a></div>
+      <div class="nav-item"><a class="nav-link">聯絡我們</a></div>
+      <div class="nav-item logo"><a class="nav-link d-block"><img src="./src/img/Logo.png"></a></div>
+      <div class="d-flex nav-item justify-content-center align-items-center">
+        <div class="icon"><a class="nav-link"><img src="./src/img/icon_search.svg"></a></div>
+        <div class="icon"><a class="nav-link"><img src="./src/img/icon_cart.svg"></a></div>
+        <div class="icon"><a class="nav-link"><img src="./src/img/icon_mode.svg"></a></div>
+      </div>
+    </div>
+  </header>
+  <main>
+    <div class="left-content">
+      <div id="step-control" class="stepper-panel">
+        <div class="stepper-container d-flex justify-content-between">
+        <div class="step active">
+          <div class="circle-container"></div>
+          <div class="step-label">寄送地址</div>
+        </div>
+        <div class="step">
+          <div class="circle-container"></div>
+          <span class="connect-line"></span>
+          <div class="step-label">運送方式</div>
+        </div>
+        <div class="step">
+          <div class="circle-container"></div>
+          <span class="connect-line"></span>
+          <div class="step-label">付款資訊</div>
+        </div>
+      </div>
+      </div>
+      <div class="form-container">
+        <form>
+          <div class="form-content">
+            <div class="part">
+              <h5>寄送地址</h5>
+              <div class="form-group">
+                <div>
+                  <label for="title">稱謂</label>
+                  <select id="title">
+                    <option>先生</option>
+                  </select>
+                </div>
+                <div>
+                  <label for="name">姓名</label>
+                  <input type="text" id="name">
+                </div>
+              </div>
+              <div class="form-group">
+                <div>
+                  <label for="phone">電話</label>
+                  <input type="tel" id="phone">
+                </div>
+                <div>
+                  <label for="email">Email</label>
+                  <input type="email" id="email">
+                </div>
+              </div>
+              <div class="form-group">
+                <div>
+                  <label for="county">縣市</label>
+                  <select name="county" id="county">
+                    <option>台北</option>
+                  </select>
+                </div>
+                <div>
+                  <label for="address">地址</label>
+                  <input type="text" id="address">
+                </div>
+              </div>
+            </div>
+            <div class="form-btn-container">
+              <button class="btn btn-prev">上一步</button>
+              <button class="btn btn-next">上一步</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="right-content">
+      <h5>購物籃</h5>
+      <div class="cart-container">
+        <div class="cart-item">
+          <img src="./src/img/Block1.jpg">
+          <div class="cart-item_index">
+            <p>破壞補丁修身牛仔褲</p>
+            <div class="cart-item_qut">
+              <div class="circle-container"><div class="plus-icon"></div></div>
+              <div class="qut">1</div>
+              <div class="circle-container"><div class="minus-icon"></div></div>
+            </div>
+          </div>
+        </div>
+        <div class="cart-item">
+          <img src="./src/img/Block.jpg">
+          <div class="cart-item_index">
+            <p>破壞補丁修身牛仔褲</p>
+            <div class="cart-item_qty">
+              <div class="circle-container"><div class="plus-icon"></div></div>
+              <div class="cart-qty">1</div>
+              <div class="circle-container"><div class="minus-icon"></div></div>
+            </div>
+          </div>
+        </div>
+        <div class="cart-delivery">
+          <div>運費</div>
+          <div>免費</div>
+        </div>
+        <div class="cart-total">
+          <div>小計</div>
+          <div class="cart-total-num">$5928</div>
+        </div>
+      </div>
+    </div>
+  </main>
+  <script src="dist/bundle.js"></script>
+</body>
+</html>
