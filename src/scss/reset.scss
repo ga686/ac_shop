@@ -61,6 +61,10 @@ input:invalid {
   box-shadow: none;
 }
 
+select,input {
+  -webkit-appearance: none;
+}
+
 /* basic setting */
 $sizes: (
   25: 25%,
@@ -182,7 +186,7 @@ $sizes: (
 @each $prop, $abbrev in (width: w,height: h) {
  @each $num, $val in $sizes {
    .#{$abbrev}-#{$num} {
-     #{$prop}: $val;
+     #{$prop}: $val !important;
    }
  }
 }
