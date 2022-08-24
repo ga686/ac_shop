@@ -2,6 +2,8 @@
 $body-bg: #fff;
 $footer-bg: #E5E5E5;
 $nav-link-color: #2A2A2A;
+$stepper-color: #2A2A2A;
+$border-color:#000;
 
 // common
 @mixin rectangle($w,$h){
@@ -17,7 +19,7 @@ $nav-link-color: #2A2A2A;
 
   .navbar-toggle{
     position: relative;
-    @include rectangle(0px, 0px);
+    @include rectangle(0px, auto);
     &::before{
       position: absolute;
       @include rectangle(20px, 15px);
@@ -84,7 +86,27 @@ $nav-link-color: #2A2A2A;
 
 // step panel
 .stepper-panel{
-  
+  .stepper-container{
+    .step{
+      position: relative;
+      flex: 1;
+      .circle-container{
+        @include rectangle(24px, 24px);
+        border-radius: 50%;
+        border: 1px solid $stepper-color;
+        position: relative;
+      }
+      .connect-line{
+        @include rectangle(60px, 2px);
+        position: absolute;
+        top: 12px;
+        right: calc(50% + 32px);
+        left: calc(-50% + 32px);
+        background-color: $border-color;
+      }
+    }
+  }
+
   .step-label{
     display: none;
   }
