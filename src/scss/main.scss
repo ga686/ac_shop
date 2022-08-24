@@ -1,1 +1,123 @@
-.body{background-color: black;}
+// colors
+$body-bg: #fff;
+$footer-bg: #E5E5E5;
+$nav-link-color: #2A2A2A;
+
+// common
+@mixin rectangle($w,$h){
+  width: $w;
+  height: $h;
+}
+
+// nav
+.navbar{
+  @include rectangle(100%, 56px);
+  position: relative;
+  line-height: 56px;
+
+  .navbar-toggle{
+    position: relative;
+    @include rectangle(0px, 0px);
+    &::before{
+      position: absolute;
+      @include rectangle(20px, 15px);
+      content: '';
+      background-image: url('../img/hamburger.svg');
+      background-size: contain;
+      top: -50%;
+      transform: translateY(50%);
+      left: 17px;
+      cursor: pointer;
+    }
+  }
+
+  .navbar-container{
+    flex-direction: column;
+    position: absolute;
+    top: 100%;
+    background-color: $body-bg;
+    transition: transform 0.3s ease-out;
+    transform-origin: top;
+    transform: scale(1, 0);
+  }
+
+  .navbar-toggle:checked ~ .navbar-container {
+    transform: scale(1, 1);
+  }
+
+  .nav-item {
+    /*預設透明度 0*/  
+    opacity: 0;
+  }
+
+  .navbar-toggle:checked ~ .navbar-container .nav-item {
+    /*增加轉場效果*/
+    transition: opacity 0.2s ease-out 0.2s;
+    opacity: 1;
+  }
+
+  .mobile-logo{
+    a{
+      @include rectangle(136px, 56px);
+      line-height: 56px;
+      img{object-fit: contain}
+    }
+  }
+
+  .nav-item{
+    @include rectangle(100%, auto);
+    &.logo{display: none;}
+    .icon{
+      margin: 0 21px;
+      a{
+        @include rectangle(24px, 56px);
+        display: block;
+        line-height: 56px;
+      }
+    }
+  }
+
+  .nav-item + .nav-item{
+    border-top: 2px solid rgba(42, 42, 42, 0.1);
+  }
+}
+
+// step panel
+.stepper-panel{
+  
+  .step-label{
+    display: none;
+  }
+}
+
+
+
+@media(min-width:375.98px){
+  .navbar{
+  @include rectangle(100%, 60px);
+  line-height: 60px;
+
+  .navbar-container{
+    flex-direction: row;
+    padding-left:166px;
+    padding-right: 166px;
+    position: relative;
+
+    .nav-item{
+      margin: 0 16px;
+      &.logo {
+        flex:1;
+        margin-left: 5rem;
+        .nav-link{
+          @include rectangle(170px, auto);
+          max-width: 170px;
+          img{
+            @include rectangle(100%, 100%);
+            object-fit: contain;
+          }
+        }
+      }
+    }
+    }
+  }
+}
