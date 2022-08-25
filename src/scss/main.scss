@@ -8,6 +8,8 @@ $label-title-color: #808080;
 $form-border: 1px solid #4A4A4A;
 $placeholder-color: #999999;
 $select-color:#2A2A2A;
+$btn-next-bg:#F67599;
+$container-border:1px solid #F0F0F5;
 
 
 // common
@@ -23,6 +25,18 @@ $select-color:#2A2A2A;
   padding: 0 16px;
 }
 
+%btn-style{
+  @include rectangle(auto, 46px);
+  line-height: 46px;
+  color: #fff;
+  border-radius: 8px;
+}
+
+%form-title-style{
+  font-size: 24px;
+  margin-bottom: 24px
+}
+
 // nav
 .navbar{
   @include rectangle(100%, 56px);
@@ -30,7 +44,17 @@ $select-color:#2A2A2A;
   line-height: 56px;
   z-index: 99;
 
-  .navbar-toggle{
+  &_container{
+    flex-direction: column;
+    position: absolute;
+    top: 100%;
+    background-color: $body-bg;
+    transition: transform 0.3s ease-out;
+    transform-origin: top;
+    transform: scale(1, 0);
+  }
+
+  &_toggle{
     @include rectangle(0px, auto);
     &::before{
       position: absolute;
@@ -45,43 +69,14 @@ $select-color:#2A2A2A;
     }
   }
 
-  .navbar-container{
-    flex-direction: column;
-    position: absolute;
-    top: 100%;
-    background-color: $body-bg;
-    transition: transform 0.3s ease-out;
-    transform-origin: top;
-    transform: scale(1, 0);
-  }
-
-  .navbar-toggle:checked ~ .navbar-container {
+  &_toggle:checked ~ &_container {
     transform: scale(1, 1);
   }
 
-  .nav-item {
-    /*預設透明度 0*/  
+  &_item{
     opacity: 0;
-  }
-
-  .navbar-toggle:checked ~ .navbar-container .nav-item {
-    /*增加轉場效果*/
-    transition: opacity 0.2s ease-out 0.2s;
-    opacity: 1;
-  }
-
-  .mobile-logo{
-    a{
-      @include rectangle(136px, 56px);
-      line-height: 56px;
-      img{object-fit: contain}
-    }
-  }
-
-  .nav-item{
     @include rectangle(100%, auto);
-    &.logo{display: none;}
-    .icon{
+    &_icon{
       margin: 0 21px;
       a{
         @include rectangle(24px, 56px);
@@ -91,107 +86,168 @@ $select-color:#2A2A2A;
     }
   }
 
-  .nav-item + .nav-item{
+  &_item + &_item{
     border-top: 2px solid rgba(42, 42, 42, 0.1);
+  }
+
+  &_toggle:checked ~ &_container &_item {
+    /*增加轉場效果*/
+    transition: opacity 0.2s ease-out 0.2s;
+    opacity: 1;
+  }
+
+  &_logo--mobile{
+    a{
+      @include rectangle(136px, 56px);
+      line-height: 56px;
+      img{object-fit: contain}
+    }
+  }
+
+  &_logo--screen{
+    display: none;
+  }
+}
+
+// main
+.main-container{
+  display: grid;
+  grid-auto-flow: row;
+  
+  &_btn-group{
+    .btn{
+      @extend %btn-style;
+      flex:1;
+      &--prev{
+        color: black;
+      }
+      &--next{
+        background-color: $btn-next-bg;
+      }
+    }
+  }
+
+
+  &_left{
+    &_form{
+      &_title{
+        @extend %form-title-style
+      }
+      &_group{
+        &--name{
+          display: grid;
+          grid-template-columns: repeat(5, 1fr);
+          gap:30px;
+          > div:first-child{
+            grid-column: span 2;
+          }
+          > div:nth-child(2){
+            grid-column: span 3;
+          }
+        }
+        &--phone{
+          display: grid;
+          grid-auto-flow: row;
+        }
+        &--address{
+          display: grid;
+          grid-auto-flow: row;
+        }
+        &_item{
+          display: flex;
+          flex-direction: column;
+          margin-bottom: 16px;
+          select,input{
+            @extend %input-style;
+            &:invalid {
+              color: $placeholder-color;
+            }
+          }
+          label{
+            font-size: 12px;
+            font-weight: bold;
+            line-height: 16px;
+            color: $label-title-color;
+            margin-bottom: 8px;
+          }
+          &_select{
+            position: relative;
+            &::before{
+              position: absolute;
+              content: '';
+              @include rectangle(0px, 0px);
+              border-left: 5px solid transparent;
+              border-right: 5px solid transparent;
+              border-top: 9px solid $select-color;
+              top: 50%;
+              right: 18px;
+              transform: translateY(-50%);
+              pointer-events: none;
+
+            }
+          }
+          select{
+            &::placeholder{color: $placeholder-color;}
+          }
+        }
+
+
+      }
+
+
+    }
+  }
+
+  &_right{
+    &_title{
+      @extend %form-title-style
+    }
+    &_box{
+      border: $container-border;
+      padding: 18px 16px;
+      border-radius: 8px;
+      &_item{
+        margin-bottom: 18px;
+        &_img{
+          @include rectangle(100px, 100px)
+        }
+        &_index{
+          flex: 1;
+        }
+      }
+      &_delivery, &_total{
+        padding: 18px 0;
+      }
+    }
   }
 }
 
 // step panel
 .stepper-panel{
+  margin-bottom: 24px;
   .stepper-container{
-    .step{
+    &_step{
       position: relative;
-      flex: 1;
-      .circle-container{
+      &_circle{
         @include rectangle(32px, 32px);
         line-height: 32px;
         border-radius: 50%;
         border: 1px solid $stepper-color;
         position: relative;
       }
-      .connect-line{
+      &_label{
+        display: none
+      }
+      &_line{
         @include rectangle(60px, 2px);
-        position: absolute;
-        top: 12px;
-        right: calc(50% + 32px);
-        left: calc(-50% + 32px);
         background-color: $border-color;
+        align-self:center;
       }
     }
-  }
-
-  .step-label{
-    display: none;
   }
 }
 
-// form part 1
-.form-container{
-  .form-title{
-    margin-bottom: 24px;
-  }
 
-  .form-group {
-    display: grid;
-    &.name-group{
-      grid-template-columns: repeat(5, 1fr);
-      gap:30px;
-      div:first-child{
-        grid-column: span 2;
-      }
-      div:nth-child(2){
-        grid-column: span 3;
-      }
-    }
-    &.phone-group{
-      grid-auto-flow: row;
-    }
-    &.address-group{
-      grid-auto-flow: row;
-    }
-
-    > div{
-      display: flex;
-      flex-direction: column;
-      margin-bottom: 16px;
-      select,input{
-        @extend %input-style;
-        &:invalid {
-          color: $placeholder-color;
-        }
-      }
-
-      .select-wrapper{
-        position: relative;
-        &::before{
-          position: absolute;
-          content: '';
-          @include rectangle(0px, 0px);
-          border-left: 5px solid transparent;
-          border-right: 5px solid transparent;
-          border-top: 9px solid $select-color;
-          top: 50%;
-          right: 18px;
-          transform: translateY(-50%);
-          pointer-events: none;
-
-        }
-      }
-
-      select{
-        &::placeholder{color: $placeholder-color;}
-      }
-    }
-  }
-
-  .form-label-title{
-    font-size: 12px;
-    font-weight: bold;
-    line-height: 16px;
-    color: $label-title-color;
-    margin-bottom: 8px;
-  }
-}
 
 
 
@@ -200,18 +256,16 @@ $select-color:#2A2A2A;
     @include rectangle(100%, 60px);
     line-height: 60px;
 
-    .navbar-container{
+    &_container{
       flex-direction: row;
       padding-left:166px;
       padding-right: 166px;
       position: relative;
 
-      .nav-item{
+      &_item{
         margin: 0 16px;
-        &.logo {
-          flex:1;
-          margin-left: 5rem;
-          .nav-link{
+        &_link{
+          &_link{
             @include rectangle(170px, auto);
             max-width: 170px;
             img{
@@ -221,6 +275,12 @@ $select-color:#2A2A2A;
           }
         }
       }
+    }
+
+    &_logo--screen {
+      display: block;
+      flex:1;
+      margin-left: 5rem;
     }
   }
 }
