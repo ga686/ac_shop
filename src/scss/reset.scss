@@ -66,40 +66,14 @@ select,input {
 }
 
 /* basic setting */
-$sizes: (
-  25: 25%,
-  50: 50%,
-  75: 75%,
-  100: 100%
-);
+$max:40;
+@for $i from 1 to $max {
+  .size-#{$i * 2} {
+    font-size: ($i * 2)+px;
+  }
+}
 
-/* 使用@each 產出css size設定 */
-$spacer: 1rem;
-$spacers: (
-  0: 0,
-  1: (
-  $spacer * 0.25
-  ),
-  2: (
-  $spacer * 0.5
-  ),
-  3: (
-  $spacer * 0.75
-  ),
-  4: $spacer,
-  5: (
-  $spacer * 1.25
-  ),
-  6: (
-  $spacer * 1.5
-  ),
-  7: (
-  $spacer * 1.75
-  ),
-  8: (
-  $spacer * 2
-  )
-);
+
 /* 使用@each 產出css spacer設定 */
 html {
   font-size: 16px;
@@ -269,4 +243,8 @@ $spacers: (
 hr{
   width: 100%;
   border: 1px solid #E6E6EB;
+}
+
+.flex-1{
+  flex:1;
 }
