@@ -10,6 +10,8 @@ $placeholder-color: #999999;
 $select-color:#2A2A2A;
 $btn-next-bg:#F67599;
 $container-border:1px solid #F0F0F5;
+$radio-bg:#fff;
+$radio-shadow:inset 0px 0px 5px black;
 
 
 // common
@@ -190,11 +192,13 @@ $container-border:1px solid #F0F0F5;
             &::placeholder{color: $placeholder-color;}
           }
         }
-
-
       }
-
-
+      &_address{
+        padding: 11px 20px;
+        border: $container-border;
+        border-radius: 4px;
+        margin-bottom: 24px;
+      }
     }
   }
 
@@ -218,6 +222,17 @@ $container-border:1px solid #F0F0F5;
       &_delivery, &_total{
         padding: 18px 0;
       }
+    }
+  }
+
+  input[type="radio"]{
+    margin-right: 20px;
+    border: 1px solid black;
+    background: $radio-bg;
+    @include rectangle(20px, 20px);
+    border-radius: 50%;
+    &:active{
+      box-shadow: $radio-shadow;
     }
   }
 }
