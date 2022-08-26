@@ -11,13 +11,20 @@ $select-color:#2A2A2A;
 $btn-next-bg:#F67599;
 $container-border:1px solid #F0F0F5;
 $radio-bg:#fff;
-$radio-shadow:inset 0px 0px 5px black;
+$radio-shadow:inset 0px 0px 0px 5px black;
 
 
 // common
 @mixin rectangle($w,$h){
   width: $w;
   height: $h;
+}
+
+@mixin grid-style($num,$gap){
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-columns: repeat($num, 1fr);
+  gap:$gap;
 }
 
 %input-style{
@@ -75,9 +82,17 @@ $radio-shadow:inset 0px 0px 5px black;
     transform: scale(1, 1);
   }
 
+  &_wrap{
+    flex-direction: column;
+    width: 100%;
+  }
+
   &_item{
     opacity: 0;
     @include rectangle(100%, auto);
+    &:not(:first-child){
+      border-top: 2px solid rgba(42, 42, 42, 0.1);
+    }
     &_icon{
       margin: 0 21px;
       a{
@@ -88,34 +103,23 @@ $radio-shadow:inset 0px 0px 5px black;
     }
   }
 
-  &_item + &_item{
-    border-top: 2px solid rgba(42, 42, 42, 0.1);
-  }
-
   &_toggle:checked ~ &_container &_item {
     /*增加轉場效果*/
     transition: opacity 0.2s ease-out 0.2s;
     opacity: 1;
   }
 
-  &_logo--mobile{
+  &_logo{
     a{
       @include rectangle(136px, 56px);
       line-height: 56px;
       img{object-fit: contain}
     }
   }
-
-  &_logo--screen{
-    display: none;
-  }
 }
 
 // main
-.main-container{
-  display: grid;
-  grid-auto-flow: row;
-  
+.main-container{  
   &_btn-group{
     .btn{
       @extend %btn-style;
@@ -131,6 +135,30 @@ $radio-shadow:inset 0px 0px 5px black;
 
 
   &_left{
+    // step panel
+    .stepper-panel{
+      margin-bottom: 24px;
+      .stepper-container{
+        &_step{
+          position: relative;
+          &_circle{
+            @include rectangle(32px, 32px);
+            line-height: 32px;
+            border-radius: 50%;
+            border: 1px solid $stepper-color;
+            position: relative;
+          }
+          &_label{
+            display: none
+          }
+          &_line{
+            @include rectangle(60px, 2px);
+            background-color: $border-color;
+            align-self:center;
+          }
+        }
+      }
+    }
     &_form{
       &_title{
         @extend %form-title-style
@@ -154,6 +182,11 @@ $radio-shadow:inset 0px 0px 5px black;
         &--address{
           display: grid;
           grid-auto-flow: row;
+        }
+        &--cardnum{
+          display: grid;
+          grid-template-columns:1fr 1fr;
+          gap:30px;
         }
         &_item{
           display: flex;
@@ -208,7 +241,9 @@ $radio-shadow:inset 0px 0px 5px black;
     }
     &_box{
       border: $container-border;
-      padding: 18px 16px;
+      padding-top: 18px;
+      padding-left: 16px;
+      padding-right: 16px;
       border-radius: 8px;
       &_item{
         margin-bottom: 18px;
@@ -220,7 +255,8 @@ $radio-shadow:inset 0px 0px 5px black;
         }
       }
       &_delivery, &_total{
-        padding: 18px 0;
+        padding: 18px 0px;
+        border-top: $container-border;
       }
     }
   }
@@ -231,71 +267,120 @@ $radio-shadow:inset 0px 0px 5px black;
     background: $radio-bg;
     @include rectangle(20px, 20px);
     border-radius: 50%;
-    &:active{
+    &:active,&:checked{
       box-shadow: $radio-shadow;
     }
   }
 }
 
-// step panel
-.stepper-panel{
-  margin-bottom: 24px;
-  .stepper-container{
-    &_step{
-      position: relative;
-      &_circle{
-        @include rectangle(32px, 32px);
-        line-height: 32px;
-        border-radius: 50%;
-        border: 1px solid $stepper-color;
-        position: relative;
-      }
-      &_label{
-        display: none
-      }
-      &_line{
-        @include rectangle(60px, 2px);
-        background-color: $border-color;
-        align-self:center;
-      }
-    }
-  }
-}
-
-
-
 
 
 @media(min-width:375.98px){
   .navbar{
+    position: relative;
     @include rectangle(100%, 60px);
     line-height: 60px;
-
+    &_toggle{display: none;}
     &_container{
+      justify-content: space-between;
       flex-direction: row;
       padding-left:166px;
       padding-right: 166px;
       position: relative;
+      transform: scale(1,1);
+      top: 0;
+    }
+    &_wrap{
+      flex-direction: row;
+      width: auto;
+    }
+    &_item{
+      opacity: 1;
+      border-top: none;
+      @include rectangle(auto, auto);
+      &_link{
+        @include rectangle(170px, auto);
+        max-width: 170px;
+        img{
+          @include rectangle(100%, 100%);
+          object-fit: contain;
+        }
+      }
+      &:last-child{
+        justify-content: end;
+      }
+      &:first-child{
+        margin-right: 32px;
+      }
+    }
+    &_item + &_item{
+      margin-right: 32px;
+    }
+    &_logo {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%,-50%);
+      z-index: 99;
+    }
+  }
 
-      &_item{
-        margin: 0 16px;
-        &_link{
-          &_link{
-            @include rectangle(170px, auto);
-            max-width: 170px;
-            img{
-              @include rectangle(100%, 100%);
-              object-fit: contain;
+  .main-container{
+    &_wrap{
+      @include grid-style(2,0px 130px);
+      grid-template-rows: repeat(2,1fr);
+    }
+    &_left{
+      grid-column: 1/1;
+      .stepper-panel{
+        .stepper-container{
+          &_step{
+            display: flex;
+            &_circle{
+              @include rectangle(24px, 24px);
+              line-height: 24px;
+            }
+            &_label{
+              display: block;
+              margin-left: 8px;
+            }
+          }
+        }
+      }
+      &_form{
+        &_group{
+          &--name{
+            @include grid-style(6,30px);
+            > div:first-child{
+              grid-column: span 2;
+            }
+            > div:nth-child(2){
+              grid-column: span 4;
+            }
+          }
+          &--phone{
+            @include grid-style(2,30px);
+          }
+          &--address{
+            @include grid-style(6,30px);
+            > div:first-child{
+              grid-column: span 2;
+            }
+            > div:nth-child(2){
+              grid-column: span 4;
+            }
+          }
+          &_item{
+            input[name="card-number"],input[name="card-holder"]{
+              width: fit-content;
+              min-width: 350px;
             }
           }
         }
       }
     }
-
-    &_logo--screen {
-      display: block;
-      flex:1;
-      margin-left: 5rem;
+    &_right{
+      grid-column: 2/3;
     }
-  }
+  } 
 }
