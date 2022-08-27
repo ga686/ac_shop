@@ -1,17 +1,16 @@
 // colors
 $body-bg: #fff;
 $footer-bg: #E5E5E5;
-$nav-link-color: #2A2A2A;
-$stepper-color: #2A2A2A;
+$sub-color:#2A2A2A;
 $border-color:#000;
-$label-title-color: #808080;
+$gray-color:#808080;
 $form-border: 1px solid #4A4A4A;
 $placeholder-color: #999999;
-$select-color:#2A2A2A;
 $btn-next-bg:#F67599;
 $container-border:1px solid #F0F0F5;
 $radio-bg:#fff;
 $radio-shadow:inset 0px 0px 0px 5px black;
+$qty-btn-bg:#F0F0F5;
 
 
 // common
@@ -44,6 +43,28 @@ $radio-shadow:inset 0px 0px 0px 5px black;
 %form-title-style{
   font-size: 24px;
   margin-bottom: 24px
+}
+
+%btn-icon-style{
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%,-50%);
+  font-family: "Font Awesome 6 Free"; 
+  font-weight: 900;
+}
+
+%icon-bg-style{
+  position: relative;
+  @include rectangle(26px, 26px);
+  background-color: $qty-btn-bg;
+  border-radius: 50%;
+}
+
+%center-vertically{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
 }
 
 // nav
@@ -101,6 +122,7 @@ $radio-shadow:inset 0px 0px 0px 5px black;
         line-height: 56px;
       }
     }
+  a{color: $sub-color;}
   }
 
   &_toggle:checked ~ &_container &_item {
@@ -124,11 +146,26 @@ $radio-shadow:inset 0px 0px 0px 5px black;
     .btn{
       @extend %btn-style;
       flex:1;
+      p{position: relative;}
       &--prev{
         color: black;
+        p{
+          &::before{
+          @extend %btn-icon-style;
+          content: '\f177';
+          right: calc(50% + 33.5px);
+        }
+        }
       }
       &--next{
         background-color: $btn-next-bg;
+        p{
+          &::before{
+          @extend %btn-icon-style;
+          content: '\f178';
+          left: calc(50% + 33.5px);
+        }
+        }
       }
     }
   }
@@ -145,7 +182,7 @@ $radio-shadow:inset 0px 0px 0px 5px black;
             @include rectangle(32px, 32px);
             line-height: 32px;
             border-radius: 50%;
-            border: 1px solid $stepper-color;
+            border: 1px solid $sub-color;
             position: relative;
           }
           &_label{
@@ -202,7 +239,7 @@ $radio-shadow:inset 0px 0px 0px 5px black;
             font-size: 12px;
             font-weight: bold;
             line-height: 16px;
-            color: $label-title-color;
+            color: $gray-color;
             margin-bottom: 8px;
           }
           &_select{
@@ -213,7 +250,7 @@ $radio-shadow:inset 0px 0px 0px 5px black;
               @include rectangle(0px, 0px);
               border-left: 5px solid transparent;
               border-right: 5px solid transparent;
-              border-top: 9px solid $select-color;
+              border-top: 9px solid $sub-color;
               top: 50%;
               right: 18px;
               transform: translateY(-50%);
@@ -261,6 +298,35 @@ $radio-shadow:inset 0px 0px 0px 5px black;
     }
   }
 
+  .qty{
+    justify-content: left;
+    &_plus, &_minus{
+      @extend %icon-bg-style;
+      &::before{
+        @extend %btn-icon-style;
+        @extend %center-vertically;
+        @include rectangle(11px, 1.8px);
+        background-color: $border-color;
+        border-radius: 2px;
+        content: '';
+      }
+    }
+    &_num{
+      @include rectangle(53px, auto);
+      margin: 0 5px;
+    }
+    &_plus{
+      &::after{
+        @extend %btn-icon-style;
+        @extend %center-vertically;
+        @include rectangle(1.8px, 11px);
+        background-color: $border-color;
+        border-radius: 2px;
+        content: '';
+      }
+    }
+  }
+
   input[type="radio"]{
     margin-right: 20px;
     border: 1px solid black;
@@ -272,6 +338,10 @@ $radio-shadow:inset 0px 0px 0px 5px black;
     }
   }
 }
+
+footer{
+  display: none;
+} 
 
 
 
@@ -326,12 +396,15 @@ $radio-shadow:inset 0px 0px 0px 5px black;
   }
 
   .main-container{
+    margin-top: 80px;
+    margin-bottom: 120px;
     &_wrap{
-      @include grid-style(2,0px 130px);
-      grid-template-rows: repeat(2,1fr);
+      display: grid;
+      grid-template-areas: "left right" "button right";
+      gap: 0px 130px;
     }
     &_left{
-      grid-column: 1/1;
+      grid-area: left;
       .stepper-panel{
         .stepper-container{
           &_step{
@@ -380,7 +453,61 @@ $radio-shadow:inset 0px 0px 0px 5px black;
       }
     }
     &_right{
-      grid-column: 2/3;
+      grid-area: right;
+      &_box{
+        &_item{
+          margin-bottom: 34px;
+          &_index{
+            margin-left: 21px;
+            text-align: left !important;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: 1fr 1fr;
+            .qty{
+              grid-column: 1/2;            
+            }
+            .price{
+              grid-column: 2/3;
+              grid-row: 1/2;
+              text-align: end;
+            }
+          }
+        }
+      }
+    }
+    &_btn-group{
+      grid-area: button;
     }
   } 
+
+  footer{
+    display: block;
+    background-color: $footer-bg;
+    @include rectangle(100%, 284px);
+    h3{
+      color: $sub-color;
+      margin-bottom: 24px;
+    }
+    a{
+      color: $gray-color;
+      display: block;
+      margin-bottom: 8px;
+    }
+    .logo{
+      @include rectangle(176px, auto)
+    }
+    .wrap{
+      margin-top: 64px;
+      flex:1;
+    }
+    .icon{
+      @include rectangle(20px, 20px);
+      margin-right: 20px;
+      color:$gray-color;
+    }
+  }
+
+  .btn{
+    max-width: 174px;
+  }
 }
