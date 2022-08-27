@@ -178,6 +178,27 @@ $qty-btn-bg:#F0F0F5;
       .stepper-container{
         &_step{
           position: relative;
+          &.active{
+            .circle-container{
+              background-color: $sub-color;
+              color:#fff;
+            }
+          }
+          &.checked{
+            .circle-container{
+              &::after{
+                position: absolute;
+                content: "\2714";
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                border-radius: 50%;
+                background-color: $sub-color;
+                color:#fff;
+              }
+            }
+          }
           &_circle{
             @include rectangle(32px, 32px);
             line-height: 32px;
@@ -299,7 +320,6 @@ $qty-btn-bg:#F0F0F5;
   }
 
   .qty{
-    justify-content: left;
     &_plus, &_minus{
       @extend %icon-bg-style;
       &::before{
@@ -343,9 +363,7 @@ footer{
   display: none;
 } 
 
-
-
-@media(min-width:375.98px){
+@media(min-width:992px){
   .navbar{
     position: relative;
     @include rectangle(100%, 60px);
@@ -394,7 +412,9 @@ footer{
       z-index: 99;
     }
   }
+}
 
+@media(min-width:769px){
   .main-container{
     margin-top: 80px;
     margin-bottom: 120px;
@@ -403,6 +423,11 @@ footer{
       grid-template-areas: "left right" "button right";
       gap: 0px 130px;
     }
+  }
+}
+
+@media(min-width:375.98px){
+  .main-container{
     &_left{
       grid-area: left;
       .stepper-panel{
@@ -473,6 +498,9 @@ footer{
             }
           }
         }
+      }
+      .qty{
+        justify-content: left;
       }
     }
     &_btn-group{
