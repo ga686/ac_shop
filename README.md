@@ -1,6 +1,8 @@
 # ALPHA Shop 購物車
-![alt screenshot](/src/img/ac-shop.png)
-![alt screenshot](/src/img/ac-shop-mobile.png)
+<figure class="half">
+  <img src="./src/img/ac-shop.png">
+  <img src="./src/img/ac-shop-mobile.png">
+</figure>
 ## 優化
 
 -   新增992px、769px斷點
