@@ -348,7 +348,11 @@
       &_item{
         margin-bottom: 18px;
         &_img{
-          @include rectangle(100px, 100px)
+          @include rectangle(100px, 100px);
+          img{
+            border-radius:4px;
+            overflow: hidden;
+          }
         }
         &_index{
           flex: 1;
