@@ -24,13 +24,14 @@ btnNext.addEventListener('click', () => {
 })
 btnPrev.addEventListener('click', () => {
   sectionNum--
+
   if (sectionNum < 0) {
     return
   } else if (sectionNum > formSections.length - 1) {
     sectionNum = formSections.length - 2
   }
   formProgress(sectionNum)
-  progressControl(sectionNum) 
+  progressControl(sectionNum)
 })
 
 // 表單階段控制
