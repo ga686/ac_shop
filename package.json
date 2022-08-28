@@ -1,11 +1,12 @@
 {
   "name": "ALPHA_Shop",
+  "homepage": "https://ga686.github.io/ac_shop",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "build": "webpack --mode production",
-    "deploy": "npm run build && gh-pages -d dist",
+    "deploy": "gh-pages -d dist",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
