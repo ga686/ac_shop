@@ -1,7 +1,6 @@
 # ALPHA Shop 購物車
 <center class="half">
-  <img src="./src/img/ac-shop.png" width="300">
-  <img src="./src/img/ac-shop-mobile.png" width="300">
+  <img src="./src/img/ac-shop.png" width="400"><img src="./src/img/ac-shop-mobile.png" width="250">
 </center>
 ## 優化
 
