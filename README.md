@@ -1,8 +1,8 @@
 # ALPHA Shop 購物車
-<figure class="half">
+<center class="half">
   <img src="./src/img/ac-shop.png">
   <img src="./src/img/ac-shop-mobile.png">
-</figure>
+</center>
 ## 優化
 
 -   新增992px、769px斷點
