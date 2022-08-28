@@ -80,7 +80,9 @@
       position: absolute;
       @include rectangle(20px, 15px);
       content: '';
-      background-image: url('../img/hamburger.svg');
+      background-color: var(--text-color);
+      -webkit-mask: var(--hamburger-menu) no-repeat center;
+      mask: var(--hamburger-menu) no-repeat center;
       background-size: contain;
       left: 17px;
       top: 50%;
@@ -102,7 +104,7 @@
     opacity: 0;
     @include rectangle(100%, auto);
     &:not(:first-child){
-      border-top: 2px solid rgba(42, 42, 42, 0.1);
+      border-top: 2px solid var(--menu-border-color);
     }
     &_icon{
       margin: 0 21px;
