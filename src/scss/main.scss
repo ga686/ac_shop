@@ -161,10 +161,15 @@ $qty-btn-bg:#F0F0F5;
         background-color: $btn-next-bg;
         p{
           &::before{
-          @extend %btn-icon-style;
-          content: '\f178';
-          left: calc(50% + 33.5px);
+            @extend %btn-icon-style;
+            content: '\f178';
+            left: calc(50% + 33.5px);
+          }
         }
+      }
+      &.submit{
+        p{
+          &::before{display: none;}
         }
       }
     }
@@ -322,6 +327,7 @@ $qty-btn-bg:#F0F0F5;
   .qty{
     &_plus, &_minus{
       @extend %icon-bg-style;
+      cursor: pointer;
       &::before{
         @extend %btn-icon-style;
         @extend %center-vertically;
@@ -383,8 +389,10 @@ footer{
       width: auto;
     }
     &_item{
-      opacity: 1;
-      border-top: none;
+      opacity: 1;   
+      &:not(:first-child){
+        border-top: none;
+      }
       @include rectangle(auto, auto);
       &_link{
         @include rectangle(170px, auto);
