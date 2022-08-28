@@ -7,11 +7,15 @@
   <title>AC Shop</title>
   <link rel="stylesheet" href="dist/all.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@700&display=swap" rel="stylesheet">
 </head>
 <body>
   <header class="navbar d-flex align-items-center">
     <input type="checkbox" class="navbar_toggle m-0" id="navbar-toggle" />
-    <div class="navbar_logo mx-auto"><a class="nav-link d-block"><img src="./src/img/Logo.png"></a></div>
+    <div class="navbar_logo mx-auto"><a class="nav-link d-block"></a></div>
     <div class="navbar_container w-100 d-flex mx-auto text-center align-items-center container px-1">
       <div class="d-flex navbar_wrap align-items-end">
         <div class="navbar_item"><a href="/" class="nav-link">男款</a></div>
@@ -21,9 +25,12 @@
         <div class="navbar_item"><a href="/" class="nav-link">聯絡我們</a></div>
       </div>
       <div class="d-flex navbar_item justify-content-center align-items-center">
-        <div class="navbar_item_icon"><a class="navbar_item_link"><img src="./src/img/icon_search.svg"></a></div>
-        <div class="navbar_item_icon"><a class="navbar_item_link"><img src="./src/img/icon_cart.svg"></a></div>
-        <div class="navbar_item_icon"><a class="navbar_item_link"><img src="./src/img/icon_mode.svg"></a></div>
+        <div class="navbar_item_icon search"><a class="navbar_item_link"></a></div>
+        <div class="navbar_item_icon cart"><a class="navbar_item_link"></a></div>
+        <div class="navbar_item_icon mode">
+          <label for="dark-mode-toggle"><a class="navbar_item_link"></a></label>
+          <input type="checkbox" id="dark-mode-toggle">
+        </div>
       </div>
     </div>
   </header>
@@ -204,9 +211,7 @@
   <footer>
     <div class="container d-flex">
       <div class="flex-1 wrap">
-        <div class="logo">
-          <img class="w-100 h-100" src="./src/img/Logo.png">
-        </div>
+        <div class="logo"></div>
       </div>
       <div class="flex-1 wrap">
         <h3 class="size-24 font-bold">客戶服務</h3>

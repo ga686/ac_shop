@@ -1,17 +1,6 @@
-// colors
-$body-bg: #fff;
-$footer-bg: #E5E5E5;
-$sub-color:#2A2A2A;
-$border-color:#000;
-$gray-color:#808080;
-$form-border: 1px solid #4A4A4A;
-$placeholder-color: #999999;
-$btn-next-bg:#F67599;
-$container-border:1px solid #F0F0F5;
-$radio-bg:#fff;
-$radio-shadow:inset 0px 0px 0px 5px black;
-$qty-btn-bg:#F0F0F5;
-
+@import './basic';
+@import './reset';
+@import './colors';
 
 // common
 @mixin rectangle($w,$h){
@@ -27,8 +16,9 @@ $qty-btn-bg:#F0F0F5;
 }
 
 %input-style{
+  background: transparent;
   @include rectangle(auto, 40px);
-  border:$form-border;
+  border: var(--form-border);
   border-radius: 4px;
   padding: 0 16px;
 }
@@ -56,7 +46,7 @@ $qty-btn-bg:#F0F0F5;
 %icon-bg-style{
   position: relative;
   @include rectangle(26px, 26px);
-  background-color: $qty-btn-bg;
+  background-color: var(--qty-btn-bg);
   border-radius: 50%;
 }
 
@@ -78,7 +68,7 @@ $qty-btn-bg:#F0F0F5;
     flex-direction: column;
     position: absolute;
     top: 100%;
-    background-color: $body-bg;
+    background-color: var(--body-bg);
     transition: transform 0.3s ease-out;
     transform-origin: top;
     transform: scale(1, 0);
@@ -120,9 +110,38 @@ $qty-btn-bg:#F0F0F5;
         @include rectangle(24px, 56px);
         display: block;
         line-height: 56px;
+        background-color: var(--text-color);
+        cursor: pointer;
+      }
+      &.search{
+        a{
+          -webkit-mask: var(--icon-search-url) no-repeat center;
+          mask: var(--icon-search-url) no-repeat center;
+        }
+      }
+      &.cart{
+        a{
+          -webkit-mask: var(--icon-cart-url) no-repeat center;
+          mask: var(--icon-cart-url) no-repeat center;
+        }
+      }
+      &.mode{
+        a{
+          -webkit-mask: var(--icon-mode-url) no-repeat center;
+          mask: var(--icon-mode-url) no-repeat center;
+          position: relative;
+        }
+        input[type="checkbox"]{
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          cursor: pointer;
+        }
       }
     }
-  a{color: $sub-color;}
+  a{color: var(--nav-link-color);}
   }
 
   &_toggle:checked ~ &_container &_item {
@@ -135,7 +154,7 @@ $qty-btn-bg:#F0F0F5;
     a{
       @include rectangle(136px, 56px);
       line-height: 56px;
-      img{object-fit: contain}
+      background: center/contain var(--logo-url) no-repeat;
     }
   }
 }
@@ -158,8 +177,9 @@ $qty-btn-bg:#F0F0F5;
         }
       }
       &--next{
-        background-color: $btn-next-bg;
+        background-color: var(--btn-next-bg);
         p{
+          color: #fff;
           &::before{
             @extend %btn-icon-style;
             content: '\f178';
@@ -183,14 +203,25 @@ $qty-btn-bg:#F0F0F5;
       .stepper-container{
         &_step{
           position: relative;
+          color: var(--step-color);
+          opacity: 0.6;
           &.active{
+            opacity: 1;
+            color: var(--step-color);
             .circle-container{
-              background-color: $sub-color;
+              background-color: var(--step-bg);
               color:#fff;
+              border: none;
+            }
+            & + .stepper-container_step_line{
+              opacity: 1;
             }
           }
           &.checked{
+            opacity: 1;
+            color: var(--step-color);
             .circle-container{
+              border: none;
               &::after{
                 position: absolute;
                 content: "\2714";
@@ -199,16 +230,19 @@ $qty-btn-bg:#F0F0F5;
                 right: 0;
                 bottom: 0;
                 border-radius: 50%;
-                background-color: $sub-color;
+                background-color: var(--step-bg);
                 color:#fff;
               }
+            }
+            & + .stepper-container_step_line{
+              opacity: 1;
             }
           }
           &_circle{
             @include rectangle(32px, 32px);
             line-height: 32px;
             border-radius: 50%;
-            border: 1px solid $sub-color;
+            border: 1px solid var(--step-color);
             position: relative;
           }
           &_label{
@@ -216,8 +250,9 @@ $qty-btn-bg:#F0F0F5;
           }
           &_line{
             @include rectangle(60px, 2px);
-            background-color: $border-color;
+            background-color: var(--border-color);
             align-self:center;
+            opacity: 0.4;
           }
         }
       }
@@ -258,40 +293,39 @@ $qty-btn-bg:#F0F0F5;
           select,input{
             @extend %input-style;
             &:invalid {
-              color: $placeholder-color;
+              color: var(--placeholder-color);
             }
           }
           label{
             font-size: 12px;
             font-weight: bold;
             line-height: 16px;
-            color: $gray-color;
+            color: var(--gray-color);
             margin-bottom: 8px;
           }
-          &_select{
-            position: relative;
-            &::before{
-              position: absolute;
-              content: '';
-              @include rectangle(0px, 0px);
-              border-left: 5px solid transparent;
-              border-right: 5px solid transparent;
-              border-top: 9px solid $sub-color;
-              top: 50%;
-              right: 18px;
-              transform: translateY(-50%);
-              pointer-events: none;
-
-            }
-          }
           select{
-            &::placeholder{color: $placeholder-color;}
+            &::placeholder{color: var(--placeholder-color);}
+          }
+        }
+        &_select{
+          position: relative;
+          &::before{
+            position: absolute;
+            content: '';
+            @include rectangle(0px, 0px);
+            border-left: 4.5px solid transparent;
+            border-right: 4.5px solid transparent;
+            border-top: 5px solid var(--border-color);
+            top: 50%;
+            right: 18px;
+            transform: translateY(-50%);
+            pointer-events: none;
           }
         }
       }
       &_address{
         padding: 11px 20px;
-        border: $container-border;
+        border: var(--container-border);
         border-radius: 4px;
         margin-bottom: 24px;
       }
@@ -303,7 +337,8 @@ $qty-btn-bg:#F0F0F5;
       @extend %form-title-style
     }
     &_box{
-      border: $container-border;
+      background-color: var(--right-container-bg);
+      border: var(--container-border);
       padding-top: 18px;
       padding-left: 16px;
       padding-right: 16px;
@@ -319,12 +354,14 @@ $qty-btn-bg:#F0F0F5;
       }
       &_delivery, &_total{
         padding: 18px 0px;
-        border-top: $container-border;
+        border-top: var(--container-border);
+        color: var(--text-color);
       }
     }
   }
 
   .qty{
+    color: var(--text-color);
     &_plus, &_minus{
       @extend %icon-bg-style;
       cursor: pointer;
@@ -332,7 +369,7 @@ $qty-btn-bg:#F0F0F5;
         @extend %btn-icon-style;
         @extend %center-vertically;
         @include rectangle(11px, 1.8px);
-        background-color: $border-color;
+        background-color: var(--sub-color);
         border-radius: 2px;
         content: '';
       }
@@ -346,7 +383,7 @@ $qty-btn-bg:#F0F0F5;
         @extend %btn-icon-style;
         @extend %center-vertically;
         @include rectangle(1.8px, 11px);
-        background-color: $border-color;
+        background-color: var(--sub-color);
         border-radius: 2px;
         content: '';
       }
@@ -356,11 +393,12 @@ $qty-btn-bg:#F0F0F5;
   input[type="radio"]{
     margin-right: 20px;
     border: 1px solid black;
-    background: $radio-bg;
+    background: var(--radio-bg);
     @include rectangle(20px, 20px);
     border-radius: 50%;
     &:active,&:checked{
-      box-shadow: $radio-shadow;
+      background-color: var(--radio-bg-checked);
+      box-shadow: var(--radio-shadow);
     }
   }
 }
@@ -445,10 +483,12 @@ footer{
             &_circle{
               @include rectangle(24px, 24px);
               line-height: 24px;
+              color: var(--step-color);
             }
             &_label{
               display: block;
               margin-left: 8px;
+              color: var(--step-color)
             }
           }
         }
@@ -500,6 +540,7 @@ footer{
               grid-column: 1/2;            
             }
             .price{
+              color: var(--text-color);
               grid-column: 2/3;
               grid-row: 1/2;
               text-align: end;
@@ -518,19 +559,19 @@ footer{
 
   footer{
     display: block;
-    background-color: $footer-bg;
+    background-color: var(--footer-bg);
     @include rectangle(100%, 284px);
     h3{
-      color: $sub-color;
       margin-bottom: 24px;
     }
     a{
-      color: $gray-color;
+      color: var(--gray-color);
       display: block;
       margin-bottom: 8px;
     }
     .logo{
-      @include rectangle(176px, auto)
+      @include rectangle(176px, 31px);
+      background: center/contain var(--logo-url) no-repeat;
     }
     .wrap{
       margin-top: 64px;
@@ -539,7 +580,7 @@ footer{
     .icon{
       @include rectangle(20px, 20px);
       margin-right: 20px;
-      color:$gray-color;
+      color:var(--gray-color);
     }
   }
 

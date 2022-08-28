@@ -1,6 +1,11 @@
 import './scss/main.scss'
-import './scss/reset.scss'
+const logoUrlDefault = require("./img/Logo.png")
+const logoUrlDark = require("./img/Logo-dark.png")
 const imgUrl = require("./img/hamburger.svg")
+const cartIcon = require("./img/icon_cart.svg")
+const modeIconDark = require("./img/icon_mode-dark.svg")
+const modeIconLight = require("./img/icon_mode-light.svg")
+const searchIcon = require("./img/icon_search.svg")
 console.log('JS loaded!')
 
 // dom
@@ -12,6 +17,7 @@ const cart = document.querySelector('.main-container_right_box')
 const cartItem = document.querySelectorAll('.main-container_right_box_item')
 const prices = document.querySelectorAll('.price')
 const cartTotal = document.querySelector('.cart-total-num')
+const modeToggleBtn = document.getElementById('dark-mode-toggle')
 let sectionNum = 0
 let qtys = []
 
@@ -24,7 +30,6 @@ btnNext.addEventListener('click', () => {
 })
 btnPrev.addEventListener('click', () => {
   sectionNum--
-
   if (sectionNum < 0) {
     return
   } else if (sectionNum > formSections.length - 1) {
@@ -49,10 +54,16 @@ function formProgress (num) {
 
 // progress-bar 控制
 function progressControl (num) {
-  steps.forEach((item, idx) => item.classList.remove('active', 'checked'))
+  steps.forEach((item, idx) => item.classList.remove('active'))
   steps[num].classList.add('active')
   if (num > 0) {
-    steps[num - 1].classList.add('checked')
+    steps.forEach((item, idx2) => {
+      if(num <= idx2){
+        item.classList.remove('checked')
+      }else{
+        item.classList.add('checked')
+      }
+    })
     btnPrev.classList.remove('disabled')
   } else {
     btnPrev.classList.add('disabled')
@@ -88,3 +99,8 @@ function total(){
   }) 
   cartTotal.innerHTML = '$' + sum
 }
+
+// dark mode
+modeToggleBtn.addEventListener('click', () => {
+  event.target.checked ? document.documentElement.setAttribute("data-theme", "dark") : document.documentElement.setAttribute("data-theme", "light");
+})
