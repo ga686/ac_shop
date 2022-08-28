@@ -349,10 +349,6 @@
         margin-bottom: 18px;
         &_img{
           @include rectangle(100px, 100px);
-          img{
-            border-radius:4px;
-            overflow: hidden;
-          }
         }
         &_index{
           flex: 1;
@@ -362,6 +358,10 @@
         padding: 18px 0px;
         border-top: var(--container-border);
         color: var(--text-color);
+      }
+      img{
+        border-radius:4px;
+        overflow: hidden;
       }
     }
   }
