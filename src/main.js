@@ -18,6 +18,7 @@ const cartItem = document.querySelectorAll('.main-container_right_box_item')
 const prices = document.querySelectorAll('.price')
 const cartTotal = document.querySelector('.cart-total-num')
 const modeToggleBtn = document.getElementById('dark-mode-toggle')
+let theme = localStorage.getItem('theme')
 let sectionNum = 0
 let qtys = []
 
@@ -101,6 +102,13 @@ function total(){
 }
 
 // dark mode
-modeToggleBtn.addEventListener('click', () => {
-  event.target.checked ? document.documentElement.setAttribute("data-theme", "dark") : document.documentElement.setAttribute("data-theme", "light");
+if(theme){
+  document.documentElement.setAttribute("data-theme", theme)
+}
+
+modeToggleBtn.addEventListener('click', (event) => {
+  event.target.checked ? theme = "dark" : theme = "light"
+  localStorage.setItem("theme", theme)
+  document.documentElement.setAttribute("data-theme", theme)
+  return theme 
 })
