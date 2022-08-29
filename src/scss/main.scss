@@ -165,6 +165,7 @@
 // main
 .main-container{  
   &_btn-group{
+    margin-bottom: 24px;
     .btn{
       @extend %btn-style;
       flex:1;
@@ -331,6 +332,9 @@
         border: var(--container-border);
         border-radius: 4px;
         margin-bottom: 24px;
+        &.selected{
+          border: var(--container-border-selected)
+        }
       }
     }
   }
