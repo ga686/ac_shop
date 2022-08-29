@@ -63,6 +63,15 @@ input:required {
 input:invalid {
   box-shadow: none;
 }
+input:-webkit-autofill,
+input:-webkit-autofill:focus {
+  transition: background-color 600000s 0s, color 600000s 0s;
+  color: var(--text-color);
+}
+input[data-autocompleted] {
+  background-color: transparent !important;
+  color: var(--text-color);
+}
 
 select,input {
   -webkit-appearance: none;

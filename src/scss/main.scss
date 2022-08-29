@@ -108,6 +108,7 @@
     }
     &_icon{
       margin: 0 21px;
+      position: relative;
       a{
         @include rectangle(24px, 56px);
         display: block;
