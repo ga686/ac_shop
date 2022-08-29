@@ -353,6 +353,9 @@
         }
         &_index{
           flex: 1;
+          .price{
+            color: var(--text-color);
+          }
         }
       }
       &_delivery, &_total{
@@ -547,7 +550,6 @@ footer{
               grid-column: 1/2;            
             }
             .price{
-              color: var(--text-color);
               grid-column: 2/3;
               grid-row: 1/2;
               text-align: end;
