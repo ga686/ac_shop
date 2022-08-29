@@ -13,14 +13,17 @@ const steps = document.querySelectorAll('.stepper-container_step')
 const formSections = document.querySelectorAll('section')
 const btnNext = document.querySelector('.btn.btn--next')
 const btnPrev = document.querySelector('.btn.btn--prev')
-const cart = document.querySelector('.main-container_right_box') 
+const cart = document.querySelector('.main-container_right_box_wrap') 
 const cartItem = document.querySelectorAll('.main-container_right_box_item')
-const prices = document.querySelectorAll('.price')
+const mainContainer = document.querySelector('.main-container')
 const cartTotal = document.querySelector('.cart-total-num')
 const modeToggleBtn = document.getElementById('dark-mode-toggle')
+const deliverWay = document.querySelectorAll('.main-container_left_form_address')
 let theme = localStorage.getItem('theme')
 let sectionNum = 0
+let delivery = 0
 let qtys = []
+let prices = [3999, 1299]
 
 btnNext.addEventListener('click', () => {
   sectionNum++
@@ -80,26 +83,42 @@ cart.addEventListener('click', (event) => {
   let index = event.target.closest('.main-container_right_box_item').dataset.id
   let qty = qtys[index - 1]
 
-  if(event.target.matches('.qty_plus')){
+  if (event.target.matches('.qty_plus')) {
     qty++
     event.target.previousElementSibling.innerHTML = qty
   }
 
-  if(event.target.matches('.qty_minus') && qty > 0){
+  if (event.target.matches('.qty_minus') && qty > 0) {
     qty--
     event.target.nextElementSibling.innerHTML = qty
   }
   qtys.splice((index - 1), index, qty)
-  total()
 })
+
+// 運費
+function deliverAdd(el){
+  if (el.matches('.address-label')) {
+    deliverWay.forEach((item, index) => item.classList.remove('selected'))
+    el.parentNode.classList.add('selected')
+    delivery = Number(el.nextElementSibling.value)
+  }
+  delivery === 0 ? document.querySelector('.delivery-fee').innerHTML = "免費" : document.querySelector('.delivery-fee').innerHTML = '$' + delivery
+  return delivery
+}
+
 // 加總
 function total(){
   let sum = 0
   cartItem.forEach((item, idx) => {
-    sum = Number(prices[idx].innerHTML.slice(1)) * qtys[idx] + sum
+    sum = prices[idx] * qtys[idx] + sum
   }) 
-  cartTotal.innerHTML = '$' + sum
+  cartTotal.innerHTML = '$' + Number(sum + delivery).toString().replace(/\B(?=(?:\d{3})+\b)/g, ',')
 }
+
+mainContainer.addEventListener('click', (event) => {
+  deliverAdd(event.target)
+  total()
+})
 
 // dark mode
 if(theme){
